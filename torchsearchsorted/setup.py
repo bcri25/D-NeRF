@@ -1,6 +1,8 @@
 from setuptools import setup, find_packages
-from torch.utils.cpp_extension import BuildExtension, CUDA_HOME
-from torch.utils.cpp_extension import CppExtension, CUDAExtension
+from torch.utils.cpp_extension import BuildExtension
+#from torch.utils.cpp_extension import BuildExtension, CUDA_HOME
+from torch.utils.cpp_extension import CppExtension
+#from torch.utils.cpp_extension import CppExtension, CUDAExtension
 
 # In any case, include the CPU version
 modules = [
@@ -9,12 +11,12 @@ modules = [
 ]
 
 # If nvcc is available, add the CUDA extension
-if CUDA_HOME:
-    modules.append(
-        CUDAExtension('torchsearchsorted.cuda',
-                      ['src/cuda/searchsorted_cuda_wrapper.cpp',
-                       'src/cuda/searchsorted_cuda_kernel.cu'])
-    )
+#if CUDA_HOME:
+#    modules.append(
+#        CUDAExtension('torchsearchsorted.cuda',
+#                      ['src/cuda/searchsorted_cuda_wrapper.cpp',
+#                       'src/cuda/searchsorted_cuda_kernel.cu'])
+#    )
 
 tests_require = [
     'pytest',

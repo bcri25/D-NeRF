@@ -45,22 +45,22 @@ if __name__ == '__main__':
             import ipdb; ipdb.set_trace()
         print('    difference between CPU and NUMPY: %0.3f' % error_CPU)
 
-        if not torch.cuda.is_available():
-            print('CUDA is not available on this machine, cannot go further.')
-            continue
+        #if not torch.cuda.is_available():
+        #    print('CUDA is not available on this machine, cannot go further.')
+        #    continue
         else:
             # now do the CPU
             a = a.to('cuda')
             v = v.to('cuda')
-            torch.cuda.synchronize()
+            #torch.cuda.synchronize()
             # launch searchsorted on those
             t0 = time.time()
             test_GPU = searchsorted(a, v, test_GPU, side)
-            torch.cuda.synchronize()
+           # torch.cuda.synchronize()
             print('GPU:  searchsorted in %0.3fms' % (1000*(time.time()-t0)))
 
             # compute the difference between both
-            error_CUDA = torch.norm(test_NP.to('cuda').double()
-                               - test_GPU.double()).cpu().numpy()
+           # error_CUDA = torch.norm(test_NP.to('cuda').double()
+           #                    - test_GPU.double()).cpu().numpy()
 
-            print('    difference between GPU and NUMPY: %0.3f' % error_CUDA)
+           # print('    difference between GPU and NUMPY: %0.3f' % error_CUDA)

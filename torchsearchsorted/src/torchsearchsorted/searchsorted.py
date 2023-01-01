@@ -10,11 +10,11 @@ except ImportError:
     SEARCHSORTED_CPU_AVAILABLE = False
 
 # trying to import the CUDA searchsorted
-SEARCHSORTED_GPU_AVAILABLE = True
-try:
-    from torchsearchsorted.cuda import searchsorted_cuda_wrapper
-except ImportError:
-    SEARCHSORTED_GPU_AVAILABLE = False
+#SEARCHSORTED_GPU_AVAILABLE = True
+#try:
+#    from torchsearchsorted.cuda import searchsorted_cpu_wrapper(a, v, out, left_side)
+#except ImportError:
+#    SEARCHSORTED_GPU_AVAILABLE = False
 
 
 def searchsorted(a: torch.Tensor, v: torch.Tensor,
@@ -37,17 +37,17 @@ def searchsorted(a: torch.Tensor, v: torch.Tensor,
     else:
         out = torch.empty(result_shape, device=v.device, dtype=torch.long)
 
-    if a.is_cuda and not SEARCHSORTED_GPU_AVAILABLE:
-        raise Exception('torchsearchsorted on CUDA device is asked, but it seems '
-                        'that it is not available. Please install it')
-    if not a.is_cuda and not SEARCHSORTED_CPU_AVAILABLE:
-        raise Exception('torchsearchsorted on CPU is not available. '
-                        'Please install it.')
+   # if a.is_cuda and not SEARCHSORTED_GPU_AVAILABLE:
+   #     raise Exception('torchsearchsorted on CUDA device is asked, but it seems '
+   #                     'that it is not available. Please install it')
+   # if not a.is_cuda and not SEARCHSORTED_CPU_AVAILABLE:
+   #     raise Exception('torchsearchsorted on CPU is not available. '
+   #                     'Please install it.')
 
     left_side = 1 if side=='left' else 0
-    if a.is_cuda:
-        searchsorted_cuda_wrapper(a, v, out, left_side)
-    else:
-        searchsorted_cpu_wrapper(a, v, out, left_side)
+   # if a.is_cuda:
+   #     searchsorted_cuda_wrapper(a, v, out, left_side)
+   # else:
+    searchsorted_cpu_wrapper(a, v, out, left_side)
 
     return out

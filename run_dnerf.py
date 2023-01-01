@@ -1,6 +1,8 @@
 import os
 import imageio
 import time
+#i added that line (import torch)
+import torch 
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm, trange
 
@@ -9,12 +11,14 @@ from run_dnerf_helpers import *
 
 from load_blender import load_blender_data
 
+
+
 try:
     from apex import amp
 except ImportError:
     pass
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 np.random.seed(0)
 DEBUG = False
 
@@ -896,7 +900,8 @@ def train():
         del rgb, disp, acc, extras
 
         if i%args.i_img==0:
-            torch.cuda.empty_cache()
+            #torch.cuda.empty_cache()
+            #pytorch.cpu.empty_cache()
             # Log a rendered validation view to Tensorboard
             img_i=np.random.choice(i_val)
             target = images[img_i]
@@ -952,6 +957,6 @@ def train():
 
 
 if __name__=='__main__':
-    torch.set_default_tensor_type('torch.cuda.FloatTensor')
+    torch.set_default_tensor_type('torch.FloatTensor')
 
     train()

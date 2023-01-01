@@ -62,10 +62,10 @@ print('CPU: ', min(cpu), sep='\t')
 
 if torch.cuda.is_available():
     gpu = timeit.repeat(
-        stmt="searchsorted_synchronized(a, v, out, side='left')",
-        setup="a, v, out = get_tensors(device='cuda')",
-        globals=globals(),
-        repeat=repeats,
-        number=number
+         stmt="searchsorted_synchronized(a, v, out, side='left')",
+         setup="a, v, out = get_tensors(device='cuda')",
+         globals=globals(),
+         repeat=repeats,
+         number=number
     )
     print('CUDA: ', min(gpu), sep='\t')
